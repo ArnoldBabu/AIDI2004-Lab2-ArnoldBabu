@@ -1,0 +1,33 @@
+# Workflow for Scenario 1 created by Arnold Babu
+name: Arnold Babu Scenario 1 CI
+
+# Trigger the workflow every time code is pushed to the main branch
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  run-python-script:
+    # Use a GitHub-hosted clean Ubuntu runner
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Clone the repository files onto the runner machine
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python environment on the runner
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: Execute the Python application script
+      - name: Execute app.py
+        run: python app.py
